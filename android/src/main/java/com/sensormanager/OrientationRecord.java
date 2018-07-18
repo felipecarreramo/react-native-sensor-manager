@@ -40,6 +40,12 @@ public class OrientationRecord implements SensorEventListener {
     }
 
     public int start(int delay) {
+
+        if (mMagnetometer == null ) {
+            sendEvent("OrientationNotAvailable", null);
+            return (0);
+        }
+
         this.delay = delay;
         if (mAccelerometer != null && isRegistered == 0) {
             mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
@@ -47,6 +53,7 @@ public class OrientationRecord implements SensorEventListener {
             isRegistered = 1;
             return (1);
         }
+
         return (0);
     }
 
